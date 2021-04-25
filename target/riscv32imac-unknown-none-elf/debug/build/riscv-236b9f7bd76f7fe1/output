@@ -1,0 +1,4 @@
+cargo:rustc-link-lib=static=riscv
+cargo:rustc-link-search=C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\riscv32imac-unknown-none-elf\debug\build\riscv-236b9f7bd76f7fe1\out
+cargo:rustc-cfg=riscv
+cargo:rustc-cfg=riscv32

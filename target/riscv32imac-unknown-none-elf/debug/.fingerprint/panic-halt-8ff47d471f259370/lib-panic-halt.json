@@ -1,0 +1,1 @@
+{"rustc":6273248261564527691,"features":"[]","target":14430071062526162153,"profile":6299028598154287785,"path":15243668980784332949,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"riscv32imac-unknown-none-elf\\debug\\.fingerprint\\panic-halt-8ff47d471f259370\\dep-lib-panic-halt"}}],"rustflags":["-C","link-arg=-Thifive1-link.x"],"metadata":2087078062977828973,"config":0}

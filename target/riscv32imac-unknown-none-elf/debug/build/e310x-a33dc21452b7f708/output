@@ -1,0 +1,2 @@
+cargo:rustc-link-search=C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\riscv32imac-unknown-none-elf\debug\build\e310x-a33dc21452b7f708\out
+cargo:rerun-if-changed=memory-fe310.x

@@ -1,0 +1,1 @@
+{"rustc":6273248261564527691,"features":"","target":0,"profile":0,"path":0,"deps":[[10242136714106300580,"build_script_build",false,11283375573299689054]],"local":[{"RerunIfChanged":{"output":"riscv32imac-unknown-none-elf\\debug\\build\\e310x-a33dc21452b7f708\\output","paths":["memory-fe310.x"]}}],"rustflags":[],"metadata":0,"config":0}

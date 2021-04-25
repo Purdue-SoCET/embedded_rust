@@ -1,0 +1,5 @@
+cargo:rustc-link-lib=static=riscv-rt
+cargo:rustc-link-search=C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\riscv32imac-unknown-none-elf\debug\build\riscv-rt-aae12223250a0914\out
+cargo:rustc-link-search=C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\riscv32imac-unknown-none-elf\debug\build\riscv-rt-aae12223250a0914\out
+cargo:rerun-if-changed=build.rs
+cargo:rerun-if-changed=link.x

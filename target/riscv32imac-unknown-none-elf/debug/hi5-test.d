@@ -1,0 +1,1 @@
+C:\Users\John\ Krefta\Documents\rust_programs\embedded\embedded_rust\target\riscv32imac-unknown-none-elf\debug\hi5-test: C:\Users\John\ Krefta\Documents\rust_programs\embedded\embedded_rust\src\main.rs bin/flash.a build.rs link.x memory-hifive1-revb.x

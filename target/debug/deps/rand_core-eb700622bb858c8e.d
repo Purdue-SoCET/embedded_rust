@@ -1,0 +1,11 @@
+C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\debug\deps\rand_core-eb700622bb858c8e.rmeta: C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\lib.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\error.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\block.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\impls.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\le.rs
+
+C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\debug\deps\librand_core-eb700622bb858c8e.rlib: C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\lib.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\error.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\block.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\impls.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\le.rs
+
+C:\Users\John Krefta\Documents\rust_programs\embedded\embedded_rust\target\debug\deps\rand_core-eb700622bb858c8e.d: C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\lib.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\error.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\block.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\impls.rs C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\le.rs
+
+C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\lib.rs:
+C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\error.rs:
+C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\block.rs:
+C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\impls.rs:
+C:\Users\John\ Krefta\.cargo\registry\src\github.com-1ecc6299db9ec823\rand_core-0.4.2\src\le.rs:
