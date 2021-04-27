@@ -306,6 +306,10 @@ fn main() -> ! {
     let mut snake_direction = DirectionSnake::STOPPED;
     let mut snake_loc : [usize; 2] = [1, 1]; // 0th index row, 1st index column
     let mut snake_loc_arith : usize = 22;
+    let mut user_score : u32 = 0;
+    let mut dest_row : usize = 8;
+    let mut dest_col : usize = 18;
+    let mut dest_flattened : usize = dest_row * 21 + dest_col;
     loop { 
         // periodically check the RX buffer, and if you see 
         // any of W,A,S,D change the previous direction
@@ -317,28 +321,25 @@ fn main() -> ! {
                 img[snake_loc_arith] = " ";
                 snake_loc[0] -= 1;
                 snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                img[snake_loc_arith] = "*";
+                
             },
             b's' => {
                 snake_direction = DirectionSnake::DOWN;
                 img[snake_loc_arith] = " ";
                 snake_loc[0] += 1;
                 snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                img[snake_loc_arith] = "*";
             },
             b'a' => {
                 snake_direction = DirectionSnake::LEFT;
                 img[snake_loc_arith] = " ";
                 snake_loc[1] -= 1;
                 snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                img[snake_loc_arith] = "*";
             },
             b'd' => {
                 snake_direction = DirectionSnake::RIGHT;
                 img[snake_loc_arith] = " ";
                 snake_loc[1] += 1;
                 snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                img[snake_loc_arith] = "*";
             },
             _ => {
                 match snake_direction {
@@ -346,32 +347,43 @@ fn main() -> ! {
                     img[snake_loc_arith] = " ";
                     snake_loc[0] -= 1;
                     snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                    img[snake_loc_arith] = "*"; 
                   }
                   DirectionSnake::DOWN => {
                     img[snake_loc_arith] = " ";
                     snake_loc[0] += 1;
                     snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                    img[snake_loc_arith] = "*";  
                   }
                   DirectionSnake::LEFT => {
                     img[snake_loc_arith] = " ";
                     snake_loc[1] -= 1;
                     snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                    img[snake_loc_arith] = "*";
                   }
                   DirectionSnake::RIGHT => {
                     img[snake_loc_arith] = " ";
                     snake_loc[1] += 1;
                     snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
-                    img[snake_loc_arith] = "*";
                   }
                   DirectionSnake::STOPPED => (),
                 }
             },
         }
+        if (snake_loc[0] == 0 || snake_loc[1] == 19 || snake_loc[1] == 0) {
+            scr.set_color_fgbg(Color::BLACK, false, Color::RED, true);
+            scr.send_str("You lost");
+            loop {}
+        }
+        if (snake_loc_arith == dest_flattened) {
+            user_score += 1;
+            dest_row -= 1;
+            dest_col -= 1;
+            dest_flattened = dest_row * 21 + dest_col;
+            img[dest_flattened] = "%";
+        }
+        img[snake_loc_arith] = "*";
         scr.clear_screen();
         scr.set_color_fgbg(Color::BLACK, false, Color::GREEN, true);
+        scr.set_cursor_visisble(false);
+        scr.set_position(0, 0);
         for i in img.iter() {
             scr.send_str(i);
         }
