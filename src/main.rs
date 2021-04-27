@@ -201,7 +201,7 @@ impl<'a> InputReceiver<'a>
             let result = self.serial_rx.read();
             match result {
                 Ok(word) => return word,
-                Err(_) => (), 
+                Err(_) => return 0, 
             }
         }
     }
@@ -224,18 +224,32 @@ impl<'a> InputReceiver<'a>
         return opt;
     }
 
-    fn get_input(&mut self ) -> Result<u8, &str>
+    fn get_input(&mut self ) -> u8
     {
         let result = self.serial_rx.read();
         match result {
-            Ok(word) => Ok(word),
-            Err(_) => Err("No input available"), 
+            Ok(word) => return word,
+            Err(_) => return 0,
         }
     }
 }
 
 #[entry]
 fn main() -> ! {
+    // start at (1,1) go to (8,8) first iteration
+    // change to array of strings
+    // 20x10 with wall, 9*19 actaul map
+    let mut img :[&str;210]  =
+    ["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","\n",
+    "|","*"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","|","\n",
+    "|"," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","%","|","\n",
+    "-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","\n"];
     let dr = DeviceResources::take().unwrap();
     let p = dr.peripherals;
     let pins = dr.pins;
@@ -263,15 +277,105 @@ fn main() -> ! {
 
     rec.clear_buffer();
     scr.set_cursor_visisble(false);
-    scr.set_position(4, 4);
+    scr.set_position(0, 0);
     scr.set_color_fgbg(Color::BLACK, false, Color::YELLOW, true);
-    
-    scr.send_str("Press any key");
-    rec.wait_for_input();
+    scr.send_str("Get Ready in 3!\n");
+    sleep.delay_ms(1000_u32);
+    scr.send_str("2\n");
+    sleep.delay_ms(1000_u32);
+    scr.send_str("1\n");
+    sleep.delay_ms(1000_u32);
+    scr.send_str("Start\n");
+    sleep.delay_ms(1000_u32);
+    scr.clear_screen();
+    scr.set_position(0, 0);
+    scr.set_cursor_visisble(true);
+    scr.send_str("SNAKE game by Rufat & Oliver\n");
+    scr.set_color_fgbg(Color::BLACK, false, Color::GREEN, true);
+    for i in img.iter() {
+        scr.send_str(i);
+    }
 
-    scr.set_position(8, 1);
-    scr.set_color_fgbg(Color::GREEN, true, Color::BLUE, false);
-    scr.send_str("test");
-    scr.send_byte('.' as u8);
-    loop { }
+    enum DirectionSnake {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        STOPPED
+    }
+    let mut snake_direction = DirectionSnake::STOPPED;
+    let mut snake_loc : [usize; 2] = [1, 1]; // 0th index row, 1st index column
+    let mut snake_loc_arith : usize = 22;
+    loop { 
+        // periodically check the RX buffer, and if you see 
+        // any of W,A,S,D change the previous direction
+        // if the current character is either - or |
+        // print "You Scored %d"
+        match rec.get_input() {
+            b'w' => {
+                snake_direction = DirectionSnake::UP;
+                img[snake_loc_arith] = " ";
+                snake_loc[0] -= 1;
+                snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                img[snake_loc_arith] = "*";
+            },
+            b's' => {
+                snake_direction = DirectionSnake::DOWN;
+                img[snake_loc_arith] = " ";
+                snake_loc[0] += 1;
+                snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                img[snake_loc_arith] = "*";
+            },
+            b'a' => {
+                snake_direction = DirectionSnake::LEFT;
+                img[snake_loc_arith] = " ";
+                snake_loc[1] -= 1;
+                snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                img[snake_loc_arith] = "*";
+            },
+            b'd' => {
+                snake_direction = DirectionSnake::RIGHT;
+                img[snake_loc_arith] = " ";
+                snake_loc[1] += 1;
+                snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                img[snake_loc_arith] = "*";
+            },
+            _ => {
+                match snake_direction {
+                  DirectionSnake::UP => {
+                    img[snake_loc_arith] = " ";
+                    snake_loc[0] -= 1;
+                    snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                    img[snake_loc_arith] = "*"; 
+                  }
+                  DirectionSnake::DOWN => {
+                    img[snake_loc_arith] = " ";
+                    snake_loc[0] += 1;
+                    snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                    img[snake_loc_arith] = "*";  
+                  }
+                  DirectionSnake::LEFT => {
+                    img[snake_loc_arith] = " ";
+                    snake_loc[1] -= 1;
+                    snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                    img[snake_loc_arith] = "*";
+                  }
+                  DirectionSnake::RIGHT => {
+                    img[snake_loc_arith] = " ";
+                    snake_loc[1] += 1;
+                    snake_loc_arith = snake_loc[0] * 21 + snake_loc[1];
+                    img[snake_loc_arith] = "*";
+                  }
+                  DirectionSnake::STOPPED => (),
+                }
+            },
+        }
+        scr.clear_screen();
+        scr.set_color_fgbg(Color::BLACK, false, Color::GREEN, true);
+        for i in img.iter() {
+            scr.send_str(i);
+        }
+        sleep.delay_ms(500_u32);
+
+    }
 }
