@@ -1,0 +1,19 @@
+[package]
+name = "kmeans"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+heapless = "0.7.3"
+rand_core = "0.6.3"
+riscv = "*"
+riscv-rt = "*"
+panic-halt = "*"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
